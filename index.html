@@ -1,26 +1,990 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
-    <meta name="theme-color" content="#FFF7F5" />
-    <title>For Arya | A Digital Story</title>
-    <meta name="description" content="A personal romantic digital story and letter written by Siddharth for Arya." />
-    
-    <!-- Google Fonts Preconnect & DNS Prefetch -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    
-    <!-- Asynchronous Non-Blocking Font Loading -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=Sacramento&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=Sacramento&display=swap" rel="stylesheet">
-    </noscript>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <meta name="theme-color" content="#FFF7F5" />
+  <title>For Arya | A Digital Story</title>
+  <meta name="description" content="A personal romantic digital story and letter written by Siddharth for Arya." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500&display=swap">
+
+  <!-- Primary CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scrollProgressBar" style="position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg, #e6c894, #df9e8e);transform-origin:0%;z-index:100;box-shadow:0 0 10px rgba(230,200,148,0.5);transform:scaleX(0);"></div>
+
+  <!-- Audio Floating Control Pill -->
+  <div class="mobile-audio-pill" style="position:fixed;top:22px;right:24px;z-index:1000;">
+    <audio id="bgAudioElement" src="assets/audio/romantic-instrumental.mp3" loop preload="none"></audio>
+    <button id="audioPillBtn" aria-label="Toggle romantic music" style="display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:9999px;background:rgba(255, 253, 252, 0.9);border:1px solid rgba(217, 107, 131, 0.3);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:var(--text-deep);font-family:var(--font-handwriting);font-size:1.25rem;cursor:pointer;box-shadow:0 4px 15px rgba(100, 40, 55, 0.08);transition:all 0.3s ease;">
+      <span>♪ paused</span>
+    </button>
+  </div>
+
+  <main style="position:relative;min-height:100vh;overflow-x:hidden;">
+
+    <!-- Background Ambient Canvas Particles -->
+    <canvas id="ambientCanvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:0;opacity:0.95;"></canvas>
+
+    <!-- ==========================================
+         HERO SECTION
+         ========================================== -->
+    <section style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;padding:2rem 1.5rem;z-index:2;">
+      <div class="ambient-glow ambient-rose" style="width:550px;height:550px;top:50%;left:50%;transform:translate(-50%, -50%);opacity:0.4;"></div>
+      
+      <div style="margin-bottom:0.75rem;">
+        <span class="handwritten-note" style="font-size:1.75rem;color:var(--accent-rose);">for you.</span>
+      </div>
+
+      <div style="position:relative;display:inline-block;margin-bottom:1.25rem;">
+        <h1 style="font-size:clamp(3.2rem, 14vw, 9.5rem);letter-spacing:0.08em;font-weight:400;line-height:1;color:var(--text-heading);margin:0;max-width:100%;">ARYA</h1>
+        <svg width="100%" height="18" viewBox="0 0 200 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top:-10px;opacity:0.8;">
+          <path d="M5 12C45 5 115 4 195 13" stroke="var(--accent-rose)" stroke-width="2.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <p class="font-serif text-subtitle" style="font-size:clamp(1.3rem, 3vw, 1.9rem);max-width:650px;color:var(--text-deep);font-style:italic;margin-bottom:1.25rem;line-height:1.45;">
+        "Maybe this is nothing yet.<br>Maybe someday it becomes everything."
+      </p>
+
+      <p style="max-width:540px;color:var(--text-body);font-size:clamp(1rem, 1.8vw, 1.15rem);font-weight:300;margin-bottom:3.5rem;line-height:1.65;">
+        Some things aren't meant to be decided in one conversation.<br>They're meant to be discovered.
+      </p>
+
+      <div>
+        <button onclick="document.getElementById('how-this-started')?.scrollIntoView({behavior:'smooth'})" class="btn-romantic-link" style="font-size:1.5rem;">
+          <span>read my little story ↓</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 1: HOW IT STARTED
+         ========================================== -->
+    <section id="how-this-started" class="section-container">
+      <div class="mb-12 text-center">
+        <div style="margin-bottom:0.6rem;">
+          <span class="handwritten-note" style="font-size:1.4rem;color:var(--accent-rose);">our little timeline</span>
+        </div>
+        <h2 style="font-size:clamp(2.2rem, 5.2vw, 3.8rem);color:var(--text-heading);font-family:var(--font-serif);font-weight:400;line-height:1.2;margin-bottom:0.75rem;">Funny how this started.</h2>
+        <p class="text-subtitle" style="max-width:650px;margin:0 auto;color:var(--text-body);">It wasn't scripted, and I definitely didn't plan it. It just happened organically.</p>
+      </div>
+
+      <div style="text-align:center;max-width:780px;margin:0 auto 3.5rem;">
+        <p class="font-serif text-subtitle" style="font-size:clamp(1.15rem, 2.5vw, 1.35rem);color:var(--text-deep);line-height:1.85;">
+          "You came to me for a job. I took your interview. Everything went well. You started working with me...<br><br>
+          And somewhere between conversations about work, random messages, late replies, lunches, dinners, gym, and all those little moments...<br>
+          <span class="text-gradient-rose font-serif" style="font-size:clamp(1.25rem, 2.8vw, 1.45rem);">I started seeing you differently."</span>
+        </p>
+      </div>
+
+      <!-- Scrapbook Note -->
+      <div class="scrapbook-note mb-16" style="max-width:680px;margin:0 auto 4rem;transform:rotate(-0.8deg);background:#fffdfc;padding:1.5rem 1.25rem;">
+        <div style="text-align:center;margin-bottom:1.25rem;">
+          <span class="handwritten-note" style="font-size:1.45rem;color:var(--accent-rose);">♡ That one Google Meet...</span>
+          <h3 class="font-serif text-gradient-rose" style="font-size:clamp(1.6rem, 4vw, 2.5rem);margin-top:0.3rem;font-weight:400;">"And then there was Instagram..."</h3>
+        </div>
+
+        <div style="max-width:520px;margin:0 auto 1.5rem;display:flex;flex-direction:column;gap:0.8rem;text-align:center;">
+          <p class="handwritten-note" style="font-size:1.25rem;color:var(--text-deep);margin:0;">"Google Meet • CRM explanation call"</p>
+          <p style="color:var(--text-body);font-size:1.02rem;margin:0;">I asked for your Instagram ID.</p>
+          <p class="handwritten-note" style="font-size:1.3rem;color:var(--accent-rose);margin:0.2rem 0;">You said no. 😌</p>
+          <p style="color:var(--text-muted);font-size:0.92rem;font-style:italic;margin:0;">(okay... I didn't push you then)</p>
+          <p class="handwritten-note" style="font-size:1.25rem;color:var(--text-deep);margin:0.4rem 0 0;">A few days later... I asked again.</p>
+          <p class="font-serif text-gradient-rose" style="font-size:1.25rem;font-weight:500;margin:0;">And this time, Instagram unlocked. 😂</p>
+        </div>
+
+        <div style="max-width:600px;margin:0 auto;text-align:center;border-top:1px dashed rgba(217, 107, 131, 0.2);padding-top:1.25rem;">
+          <p class="font-serif" style="font-size:1.15rem;color:var(--text-deep);line-height:1.8;margin-bottom:0.85rem;">"I asked once. You said no. I didn't push you then. A few days later, I asked again... and this time, you shared it with me."</p>
+          <p style="color:var(--text-body);font-size:0.96rem;line-height:1.7;margin-bottom:0.85rem;">Maybe it was just Instagram. But somehow, that tiny little thing still made me smile.</p>
+          <span class="handwritten-note" style="font-size:1.25rem;color:var(--accent-rose);">CRM ➔ Google Meet ➔ Instagram — Funny how something that started with work slowly became a little more personal. 😂</span>
+        </div>
+      </div>
+
+      <!-- Desktop View Timeline -->
+      <div class="desktop-only-view" style="max-width:720px;margin:0 auto;gap:2.5rem;">
+        <div style="padding-left:1.5rem;border-left:2px solid rgba(217, 107, 131, 0.25);position:relative;">
+          <div style="position:absolute;left:-6px;top:0;width:10px;height:10px;border-radius:50%;background:var(--accent-rose);"></div>
+          <div style="display:flex;align-items:baseline;gap:0.75rem;margin-bottom:0.3rem;flex-wrap:wrap;">
+            <span class="font-serif text-muted" style="font-size:1.1rem;font-weight:600;">01</span>
+            <h3 class="font-serif text-gradient-rose" style="font-size:1.5rem;margin:0;">THE INTERVIEW</h3>
+            <span class="handwritten-note" style="font-size:1.3rem;color:var(--accent-rose);">where I thought this was just work.</span>
+          </div>
+          <p style="font-size:1.02rem;color:var(--text-body);margin:0;line-height:1.75;">You came to me for a job. I took your interview, everything went well, and you started working with me.</p>
+        </div>
+
+        <div style="padding-left:1.5rem;border-left:2px solid rgba(217, 107, 131, 0.25);position:relative;">
+          <div style="position:absolute;left:-6px;top:0;width:10px;height:10px;border-radius:50%;background:var(--accent-rose);"></div>
+          <div style="display:flex;align-items:baseline;gap:0.75rem;margin-bottom:0.3rem;flex-wrap:wrap;">
+            <span class="font-serif text-muted" style="font-size:1.1rem;font-weight:600;">02</span>
+            <h3 class="font-serif text-gradient-rose" style="font-size:1.5rem;margin:0;">WORKING TOGETHER</h3>
+            <span class="handwritten-note" style="font-size:1.3rem;color:var(--accent-rose);">and then I started noticing you.</span>
+          </div>
+          <p style="font-size:1.02rem;color:var(--text-body);margin:0;line-height:1.75;">Work updates, project discussions, and learning how we solve problems together.</p>
+        </div>
+
+        <div style="padding-left:1.5rem;border-left:2px solid rgba(217, 107, 131, 0.25);position:relative;">
+          <div style="position:absolute;left:-6px;top:0;width:10px;height:10px;border-radius:50%;background:var(--accent-rose);"></div>
+          <div style="display:flex;align-items:baseline;gap:0.75rem;margin-bottom:0.3rem;flex-wrap:wrap;">
+            <span class="font-serif text-muted" style="font-size:1.1rem;font-weight:600;">03</span>
+            <h3 class="font-serif text-gradient-rose" style="font-size:1.5rem;margin:0;">THAT GOOGLE MEET</h3>
+            <span class="handwritten-note" style="font-size:1.3rem;color:var(--accent-rose);">the CRM call</span>
+          </div>
+          <p style="font-size:1.02rem;color:var(--text-body);margin:0;line-height:1.75;">At the end of explaining the CRM call... I casually asked for your Instagram ID.</p>
+        </div>
+
+        <div style="padding-left:1.5rem;border-left:2px solid rgba(217, 107, 131, 0.25);position:relative;">
+          <div style="position:absolute;left:-6px;top:0;width:10px;height:10px;border-radius:50%;background:var(--accent-rose);"></div>
+          <div style="display:flex;align-items:baseline;gap:0.75rem;margin-bottom:0.3rem;flex-wrap:wrap;">
+            <span class="font-serif text-muted" style="font-size:1.1rem;font-weight:600;">04</span>
+            <h3 class="font-serif text-gradient-rose" style="font-size:1.5rem;margin:0;">INSTAGRAM</h3>
+            <span class="handwritten-note" style="font-size:1.3rem;color:var(--accent-rose);">asked once, asked again...</span>
+          </div>
+          <p style="font-size:1.02rem;color:var(--text-body);margin:0;line-height:1.75;">You initially said no. I didn't push you then. A few days later, I asked again... and this time, you shared it with me.</p>
+        </div>
+
+        <div style="padding-left:1.5rem;border-left:2px solid rgba(217, 107, 131, 0.25);position:relative;">
+          <div style="position:absolute;left:-6px;top:0;width:10px;height:10px;border-radius:50%;background:var(--accent-rose);"></div>
+          <div style="display:flex;align-items:baseline;gap:0.75rem;margin-bottom:0.3rem;flex-wrap:wrap;">
+            <span class="font-serif text-muted" style="font-size:1.1rem;font-weight:600;">05</span>
+            <h3 class="font-serif text-gradient-rose" style="font-size:1.5rem;margin:0;">MORE CONVERSATIONS</h3>
+            <span class="handwritten-note" style="font-size:1.3rem;color:var(--accent-rose);">lunches, dinners, gym, late nights</span>
+          </div>
+          <p style="font-size:1.02rem;color:var(--text-body);margin:0;line-height:1.75;">Random messages, late replies, lunches, dinners, gym chats, and sharing small daily moments.</p>
+        </div>
+
+        <div style="padding-left:1.5rem;border-left:2px solid rgba(217, 107, 131, 0.25);position:relative;">
+          <div style="position:absolute;left:-6px;top:0;width:10px;height:10px;border-radius:50%;background:var(--accent-rose);"></div>
+          <div style="display:flex;align-items:baseline;gap:0.75rem;margin-bottom:0.3rem;flex-wrap:wrap;">
+            <span class="font-serif text-muted" style="font-size:1.1rem;font-weight:600;">06</span>
+            <h3 class="font-serif text-gradient-rose" style="font-size:1.5rem;margin:0;">THE CONFESSION</h3>
+            <span class="handwritten-note" style="font-size:1.3rem;color:var(--accent-rose);">honest feelings</span>
+          </div>
+          <p style="font-size:1.02rem;color:var(--text-body);margin:0;line-height:1.75;">I told you that I liked you and wanted something more than just friendship.</p>
+        </div>
+
+        <div style="padding-left:1.5rem;border-left:2px solid rgba(217, 107, 131, 0.25);position:relative;">
+          <div style="position:absolute;left:-6px;top:0;width:10px;height:10px;border-radius:50%;background:var(--accent-rose);"></div>
+          <div style="display:flex;align-items:baseline;gap:0.75rem;margin-bottom:0.3rem;flex-wrap:wrap;">
+            <span class="font-serif text-muted" style="font-size:1.1rem;font-weight:600;">07</span>
+            <h3 class="font-serif text-gradient-rose" style="font-size:1.5rem;margin:0;">WHERE WE ARE NOW</h3>
+            <span class="handwritten-note" style="font-size:1.3rem;color:var(--accent-rose);">no rush, just patience</span>
+          </div>
+          <p style="font-size:1.02rem;color:var(--text-body);margin:0;line-height:1.75;">"Maybe after some time—a month, two months, a year—we see where things go and if our vibes match."</p>
+        </div>
+      </div>
+
+      <!-- Mobile View Timeline -->
+      <div class="mobile-only-view" style="max-width:100%;margin:0 auto;gap:1.5rem;">
+        <div class="journal-entry-centered">
+          <div style="margin-bottom:0.4rem;"><span class="handwritten-note" style="font-size:1.35rem;color:var(--accent-rose);">♡ where it all began ♡</span></div>
+          <h3 class="font-serif text-gradient-rose" style="font-size:1.55rem;font-weight:400;margin-top:0.15rem;margin-bottom:0.6rem;">The Interview</h3>
+          <p style="font-size:1.05rem;color:var(--text-deep);margin:0;line-height:1.85;">You came to me for a job. I took your interview, everything went well, and you started working with me.</p>
+        </div>
+        <div class="journal-entry-paper">
+          <div style="margin-bottom:0.4rem;"><span class="handwritten-note" style="font-size:1.35rem;color:var(--accent-rose);">♡ and then I started noticing you...</span></div>
+          <h3 class="font-serif text-gradient-rose" style="font-size:1.55rem;font-weight:400;margin-top:0.15rem;margin-bottom:0.6rem;">Working Together</h3>
+          <p style="font-size:1.05rem;color:var(--text-deep);margin:0;line-height:1.85;">Work updates, project discussions, and learning how we solve problems together.</p>
+        </div>
+        <div class="journal-entry-conversation">
+          <div style="margin-bottom:0.4rem;"><span class="handwritten-note" style="font-size:1.35rem;color:var(--accent-rose);">♡ the CRM call • that little moment</span></div>
+          <h3 class="font-serif text-gradient-rose" style="font-size:1.55rem;font-weight:400;margin-top:0.15rem;margin-bottom:0.6rem;">That Google Meet</h3>
+          <p style="font-size:1.05rem;color:var(--text-deep);margin:0;line-height:1.85;">At the end of explaining the CRM call... I casually asked for your Instagram ID.</p>
+        </div>
+        <div class="journal-entry-card">
+          <div style="margin-bottom:0.4rem;"><span class="handwritten-note" style="font-size:1.35rem;color:var(--accent-rose);">♡ the first ask • asked once, asked again...</span></div>
+          <h3 class="font-serif text-gradient-rose" style="font-size:1.55rem;font-weight:400;margin-top:0.15rem;margin-bottom:0.6rem;">Instagram</h3>
+          <p style="font-size:1.05rem;color:var(--text-deep);margin:0;line-height:1.85;">You initially said no. I didn't push you then. A few days later, I asked again... and this time, you shared it with me.</p>
+        </div>
+        <div class="journal-entry-centered">
+          <div style="margin-bottom:0.4rem;"><span class="handwritten-note" style="font-size:1.35rem;color:var(--accent-rose);">♡ lunches, dinners, gym & late nights</span></div>
+          <h3 class="font-serif text-gradient-rose" style="font-size:1.55rem;font-weight:400;margin-top:0.15rem;margin-bottom:0.6rem;">More Conversations</h3>
+          <p style="font-size:1.05rem;color:var(--text-deep);margin:0;line-height:1.85;">Random messages, late replies, lunches, dinners, gym chats, and sharing small daily moments.</p>
+        </div>
+        <div class="journal-entry-paper">
+          <div style="margin-bottom:0.4rem;"><span class="handwritten-note" style="font-size:1.35rem;color:var(--accent-rose);">♡ honest feelings • saying it out loud</span></div>
+          <h3 class="font-serif text-gradient-rose" style="font-size:1.55rem;font-weight:400;margin-top:0.15rem;margin-bottom:0.6rem;">The Confession</h3>
+          <p style="font-size:1.05rem;color:var(--text-deep);margin:0;line-height:1.85;">I told you that I liked you and wanted something more than just friendship.</p>
+        </div>
+        <div class="journal-entry-conversation">
+          <div style="margin-bottom:0.4rem;"><span class="handwritten-note" style="font-size:1.35rem;color:var(--accent-rose);">♡ no rush, just patience</span></div>
+          <h3 class="font-serif text-gradient-rose" style="font-size:1.55rem;font-weight:400;margin-top:0.15rem;margin-bottom:0.6rem;">Where We Are Now</h3>
+          <p style="font-size:1.05rem;color:var(--text-deep);margin:0;line-height:1.85;">"Maybe after some time—a month, two months, a year—we see where things go and if our vibes match."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 2: VIBES MATTER
+         ========================================== -->
+    <section id="vibes-matter" class="section-container">
+      <div class="mb-12 text-center">
+        <div style="margin-bottom:0.6rem;"><span class="handwritten-note" style="font-size:1.4rem;color:var(--accent-rose);">the question that matters</span></div>
+        <h2 style="font-size:clamp(2.2rem, 5.2vw, 3.8rem);color:var(--text-heading);font-family:var(--font-serif);font-weight:400;line-height:1.2;margin-bottom:0.75rem;">You Said Vibes Matter.</h2>
+        <p class="text-subtitle" style="max-width:650px;margin:0 auto;color:var(--text-body);">When I asked if our age difference mattered, you answered with something I'll never forget.</p>
+      </div>
+
+      <div style="text-align:center;margin-bottom:3.5rem;">
+        <div style="display:inline-flex;gap:1.5rem;margin-bottom:1.5rem;">
+          <span class="handwritten-note" style="font-size:1.45rem;color:var(--text-deep);">Arya: 25</span>
+          <span class="handwritten-note" style="font-size:1.45rem;color:var(--text-deep);">Siddharth: 22</span>
+        </div>
+        <p class="font-serif text-subtitle" style="font-size:1.4rem;color:var(--text-deep);margin-bottom:1.5rem;">
+          "You told me age doesn't matter.<br>
+          <span class="text-gradient-rose font-serif" style="font-size:2.4rem;font-weight:400;">Vibes do.</span>"
+        </p>
+        <p style="max-width:600px;margin:0 auto;color:var(--text-body);font-size:1.08rem;">And I've been thinking about that ever since...</p>
+      </div>
+
+      <div style="text-align:center;padding:3rem 1rem;margin:2rem auto 4rem;max-width:700px;">
+        <h3 class="font-serif text-gradient-rose" style="font-size:clamp(2.4rem, 6vw, 4rem);margin-bottom:1rem;font-weight:400;">"Will our vibes match?"</h3>
+        <p style="color:var(--text-body);max-width:580px;margin:0 auto;font-size:1.08rem;line-height:1.75;">
+          Not today. Not tomorrow. Maybe not even soon.<br>
+          But I'm genuinely waiting for the day you know me well enough to answer that yourself.
+        </p>
+      </div>
+
+      <div style="text-align:center;margin-bottom:3rem;">
+        <span class="handwritten-note" style="font-size:1.75rem;color:var(--accent-rose);">♡ things I hope we'll discover together...</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:2rem;">
+        <div style="padding:1.25rem 0;transform:rotate(-1.5deg);border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><h4 class="font-serif text-gradient-rose" style="font-size:1.45rem;margin:0;font-weight:400;">Humour</h4></div>
+          <p class="handwritten-note" style="font-size:1.3rem;color:var(--text-body);margin:0;line-height:1.5;padding-left:1.2rem;">"because I want us to laugh at stupid things together."</p>
+        </div>
+        <div style="padding:1.25rem 0;transform:rotate(1.2deg);border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><h4 class="font-serif text-gradient-rose" style="font-size:1.45rem;margin:0;font-weight:400;">Communication</h4></div>
+          <p class="handwritten-note" style="font-size:1.3rem;color:var(--text-body);margin:0;line-height:1.5;padding-left:1.2rem;">"because I want you to be able to tell me anything."</p>
+        </div>
+        <div style="padding:1.25rem 0;transform:rotate(-0.8deg);border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><h4 class="font-serif text-gradient-rose" style="font-size:1.45rem;margin:0;font-weight:400;">Trust</h4></div>
+          <p class="handwritten-note" style="font-size:1.3rem;color:var(--text-body);margin:0;line-height:1.5;padding-left:1.2rem;">"because that's something we should build, not assume."</p>
+        </div>
+        <div style="padding:1.25rem 0;transform:rotate(1.8deg);border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><h4 class="font-serif text-gradient-rose" style="font-size:1.45rem;margin:0;font-weight:400;">Comfort</h4></div>
+          <p class="handwritten-note" style="font-size:1.3rem;color:var(--text-body);margin:0;line-height:1.5;padding-left:1.2rem;">"silence feeling easy, never awkward."</p>
+        </div>
+        <div style="padding:1.25rem 0;transform:rotate(-1deg);border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><h4 class="font-serif text-gradient-rose" style="font-size:1.45rem;margin:0;font-weight:400;">Ambition</h4></div>
+          <p class="handwritten-note" style="font-size:1.3rem;color:var(--text-body);margin:0;line-height:1.5;padding-left:1.2rem;">"supporting each other's big dreams & career goals."</p>
+        </div>
+        <div style="padding:1.25rem 0;transform:rotate(0.9deg);border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><h4 class="font-serif text-gradient-rose" style="font-size:1.45rem;margin:0;font-weight:400;">Care</h4></div>
+          <p class="handwritten-note" style="font-size:1.3rem;color:var(--text-body);margin:0;line-height:1.5;padding-left:1.2rem;">"noticing the little things when life gets overwhelming."</p>
+        </div>
+        <div style="padding:1.25rem 0;transform:rotate(-1.4deg);border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><h4 class="font-serif text-gradient-rose" style="font-size:1.45rem;margin:0;font-weight:400;">Adventure</h4></div>
+          <p class="handwritten-note" style="font-size:1.3rem;color:var(--text-body);margin:0;line-height:1.5;padding-left:1.2rem;">"exploring new places and spontaneous trips."</p>
+        </div>
+        <div style="padding:1.25rem 0;transform:rotate(1.1deg);border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><h4 class="font-serif text-gradient-rose" style="font-size:1.45rem;margin:0;font-weight:400;">Family</h4></div>
+          <p class="handwritten-note" style="font-size:1.3rem;color:var(--text-body);margin:0;line-height:1.5;padding-left:1.2rem;">"respecting where we come from and who we love."</p>
+        </div>
+        <div style="padding:1.25rem 0;transform:rotate(-0.9deg);border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><h4 class="font-serif text-gradient-rose" style="font-size:1.45rem;margin:0;font-weight:400;">Food</h4></div>
+          <p class="handwritten-note" style="font-size:1.3rem;color:var(--text-body);margin:0;line-height:1.5;padding-left:1.2rem;">"Indore food dates and making sure you actually eat."</p>
+        </div>
+        <div style="padding:1.25rem 0;transform:rotate(1.5deg);border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><h4 class="font-serif text-gradient-rose" style="font-size:1.45rem;margin:0;font-weight:400;">Late-Night Talks</h4></div>
+          <p class="handwritten-note" style="font-size:1.3rem;color:var(--text-body);margin:0;line-height:1.5;padding-left:1.2rem;">"deep 2 AM conversations when the world stops."</p>
+        </div>
+        <div style="padding:1.25rem 0;transform:rotate(-1.2deg);border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><h4 class="font-serif text-gradient-rose" style="font-size:1.45rem;margin:0;font-weight:400;">Patience</h4></div>
+          <p class="handwritten-note" style="font-size:1.3rem;color:var(--text-body);margin:0;line-height:1.5;padding-left:1.2rem;">"taking time to build something genuine."</p>
+        </div>
+        <div style="padding:1.25rem 0;transform:rotate(0.8deg);border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><h4 class="font-serif text-gradient-rose" style="font-size:1.45rem;margin:0;font-weight:400;">Understanding</h4></div>
+          <p class="handwritten-note" style="font-size:1.3rem;color:var(--text-body);margin:0;line-height:1.5;padding-left:1.2rem;">"accepting each other's habits without judgment."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 3: THINGS I NOTICE ABOUT YOU
+         ========================================== -->
+    <section id="things-i-notice" class="section-container">
+      <div class="mb-12 text-center">
+        <div style="margin-bottom:0.6rem;"><span class="handwritten-note" style="font-size:1.4rem;color:var(--accent-rose);">observations</span></div>
+        <h2 style="font-size:clamp(2.2rem, 5.2vw, 3.8rem);color:var(--text-heading);font-family:var(--font-serif);font-weight:400;line-height:1.2;margin-bottom:0.75rem;">Things I Notice About You.</h2>
+        <p class="text-subtitle" style="max-width:650px;margin:0 auto;color:var(--text-body);">The little quirks, habits, and details that make you who you are.</p>
+      </div>
+
+      <div style="max-width:720px;margin:0 auto 4rem;display:flex;flex-direction:column;gap:2.5rem;">
+        <div style="padding-bottom:1rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.3rem;"><span style="color:var(--accent-rose);font-size:1rem;">♡</span><h3 class="font-serif text-gradient-rose" style="font-size:1.5rem;margin:0;font-weight:400;">Fiercely Independent</h3></div>
+          <p style="font-size:1.02rem;color:var(--text-body);margin:0;line-height:1.75;padding-left:1.2rem;">You don't like explaining where you are, when you're going, or who you're with. You value your space.</p>
+        </div>
+
+        <div style="padding-bottom:1rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.3rem;"><span style="color:var(--accent-rose);font-size:1rem;">♡</span><h3 class="font-serif text-gradient-rose" style="font-size:1.5rem;margin:0;font-weight:400;">Gym & Routine</h3></div>
+          <p style="font-size:1.02rem;color:var(--text-body);margin:0;line-height:1.75;padding-left:1.2rem;">You stick to your gym routine no matter how packed or tiring your day gets.</p>
+        </div>
+
+        <div style="padding-bottom:1rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.3rem;"><span style="color:var(--accent-rose);font-size:1rem;">♡</span><h3 class="font-serif text-gradient-rose" style="font-size:1.5rem;margin:0;font-weight:400;">Food is an Afterthought</h3></div>
+          <p style="font-size:1.02rem;color:var(--text-body);margin:0;line-height:1.75;padding-left:1.2rem;">You get so deeply wrapped up in your day that lunch gets delayed and dinner disappears.</p>
+        </div>
+
+        <div style="padding-bottom:1rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.3rem;"><span style="color:var(--accent-rose);font-size:1rem;">♡</span><h3 class="font-serif text-gradient-rose" style="font-size:1.5rem;margin:0;font-weight:400;">Disappearing into Sleep</h3></div>
+          <p style="font-size:1.02rem;color:var(--text-body);margin:0;line-height:1.75;padding-left:1.2rem;">When exhaustion hits, you can fall asleep so peacefully that you vanish from the world for hours.</p>
+        </div>
+
+        <div style="padding-bottom:1rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.3rem;"><span style="color:var(--accent-rose);font-size:1rem;">♡</span><h3 class="font-serif text-gradient-rose" style="font-size:1.5rem;margin:0;font-weight:400;">When I Get It Wrong</h3></div>
+          <p style="font-size:1.02rem;color:var(--text-body);margin:0;line-height:1.75;padding-left:1.2rem;white-space:pre-line;">Okay... I know I won't always get everything right.
+
+And maybe someday, if we're close enough, you'll be the person who tells me when I'm being stupid.
+
+I'd probably deserve it sometimes. 😂
+
+But for now, I'm still learning you.</p>
+        </div>
+      </div>
+
+      <!-- Emoji Card -->
+      <div class="scrapbook-note text-center" style="max-width:680px;margin:0 auto;background:#fffdfc;transform:rotate(0.6deg);">
+        <span class="handwritten-note mb-2" style="font-size:1.5rem;color:var(--accent-rose);">♡ The Infamous Emoji Incident</span>
+        <p class="font-serif" style="font-size:1.35rem;color:var(--text-deep);margin:1rem 0;">"And apparently... one emoji can create an entire situation."</p>
+
+        <div style="margin:1.5rem 0;">
+          <div id="emojiToggleDisplay" style="font-size:4.5rem;cursor:pointer;display:inline-block;filter:drop-shadow(0 0 20px rgba(246, 214, 221, 0.8));user-select:none;">😡</div>
+          <p class="handwritten-note" style="font-size:1.2rem;color:var(--text-muted);margin-top:0.4rem;">(tap the emoji to see what happened)</p>
+        </div>
+
+        <div id="emojiState1">
+          <p style="color:var(--text-body);font-style:italic;">"You thought I was angry at you. I was just texting normally!"</p>
+        </div>
+
+        <div id="emojiState2" style="display:none;">
+          <p class="text-rose" style="font-size:1.15rem;font-weight:500;">"That emoji was innocent. The consequences were not. 😂"</p>
+          <p style="color:var(--text-body);font-size:0.98rem;margin-top:0.4rem;">And yes... I learned my lesson. Never sending that emoji again! 🤝</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 4: YOUR FREEDOM
+         ========================================== -->
+    <section id="your-freedom" class="section-container">
+      <div class="mb-12 text-center">
+        <div style="margin-bottom:0.6rem;"><span class="handwritten-note" style="font-size:1.4rem;color:var(--accent-rose);">freedom & space</span></div>
+        <h2 style="font-size:clamp(2.2rem, 5.2vw, 3.8rem);color:var(--text-heading);font-family:var(--font-serif);font-weight:400;line-height:1.2;margin-bottom:0.75rem;">I Know You Need Your Space.</h2>
+        <p class="text-subtitle" style="max-width:650px;margin:0 auto;color:var(--text-body);">Affection without possessiveness.</p>
+      </div>
+
+      <div style="max-width:780px;margin:0 auto 3.5rem;text-align:center;">
+        <p class="font-serif text-subtitle" style="font-size:1.35rem;color:var(--text-deep);margin-bottom:1.5rem;line-height:1.85;">
+          "You once told me you don't like answering anyone about where you are, when you're going, or who you're with.<br><br>
+          <span class="text-gradient-rose" style="font-weight:500;">I understand that.</span><br><br>
+          I don't want to become another person you feel you have to report everything to.<br>
+          I want to be the person you <strong class="text-rose">WANT</strong> to tell things to."
+        </p>
+        <p class="handwritten-note" style="font-size:1.45rem;color:var(--accent-rose);">— There is a world of difference.</p>
+      </div>
+
+      <div style="max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:1.5rem;">
+        <div style="padding-bottom:0.8rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+          <div style="flex:1;text-decoration:line-through;color:var(--text-muted);font-size:1.02rem;">Questioning you</div>
+          <div style="color:var(--accent-rose);display:flex;align-items:center;">➔</div>
+          <div style="flex:1;text-align:right;font-weight:500;color:var(--text-deep);font-size:1.25rem;font-family:var(--font-serif);">Knowing you</div>
+        </div>
+        <div style="padding-bottom:0.8rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+          <div style="flex:1;text-decoration:line-through;color:var(--text-muted);font-size:1.02rem;">Controlling you</div>
+          <div style="color:var(--accent-rose);display:flex;align-items:center;">➔</div>
+          <div style="flex:1;text-align:right;font-weight:500;color:var(--text-deep);font-size:1.25rem;font-family:var(--font-serif);">Trusting you</div>
+        </div>
+        <div style="padding-bottom:0.8rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+          <div style="flex:1;text-decoration:line-through;color:var(--text-muted);font-size:1.02rem;">Demanding updates</div>
+          <div style="color:var(--accent-rose);display:flex;align-items:center;">➔</div>
+          <div style="flex:1;text-align:right;font-weight:500;color:var(--text-deep);font-size:1.25rem;font-family:var(--font-serif);">Wanting to hear from you</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 5: FOOD AND CARE
+         ========================================== -->
+    <section id="food-and-care" class="section-container">
+      <div class="mb-12 text-center">
+        <div style="margin-bottom:0.6rem;"><span class="handwritten-note" style="font-size:1.4rem;color:var(--accent-rose);">simple care</span></div>
+        <h2 style="font-size:clamp(2.2rem, 5.2vw, 3.8rem);color:var(--text-heading);font-family:var(--font-serif);font-weight:400;line-height:1.2;margin-bottom:0.75rem;">Please Eat First.</h2>
+        <p class="text-subtitle" style="max-width:650px;margin:0 auto;color:var(--text-body);">Because honestly, it bothers me more than it should when you skip meals.</p>
+      </div>
+
+      <div style="max-width:780px;margin:0 auto;text-align:center;">
+        <div style="margin:0 auto 2.5rem;display:flex;flex-direction:column;gap:0.4rem;align-items:center;">
+          <span class="handwritten-note" style="font-size:1.45rem;color:var(--accent-rose);">"lunch hua?"</span>
+          <span style="font-size:0.92rem;color:var(--text-muted);">no?</span>
+          <span class="handwritten-note" style="font-size:1.45rem;color:var(--accent-rose);">"dinner?"</span>
+          <span style="font-size:0.92rem;color:var(--text-muted);">also no?</span>
+          <span class="handwritten-note" style="font-size:1.45rem;color:var(--accent-rose);">"you slept hungry?"</span>
+        </div>
+
+        <p class="font-serif text-subtitle" style="font-size:1.35rem;color:var(--text-deep);line-height:1.85;margin-bottom:2.5rem;">
+          "There have been moments when you were so busy that lunch became late, dinner disappeared, and sleep won.<br><br>
+          And honestly... I don't know why something as simple as you not eating can bother me this much."
+        </p>
+
+        <div class="scrapbook-note" style="max-width:680px;margin:0 auto 2rem;text-align:left;transform:rotate(-0.5deg);background:#fffdfc;">
+          <span class="handwritten-note mb-2" style="font-size:1.4rem;color:var(--accent-rose);">♡ The Indore Connection</span>
+          <p style="color:var(--text-body);font-size:1.02rem;margin:0;line-height:1.8;">
+            "If you were here in Indore, I'd probably annoy you until you ate something. And yes, if necessary, I'd make it myself.<br><br>
+            One day, when you come to Indore, I'll introduce you to my favourite kind of care: <strong class="text-rose">home food, long conversations, and someone asking you for the hundredth time... 'Lunch hua?'</strong>"
+          </p>
+        </div>
+
+        <p class="handwritten-note" style="font-size:1.3rem;color:var(--text-muted);">(No excuses allowed when you're busy!)</p>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 6: THE LITTLE THINGS
+         ========================================== -->
+    <section id="the-little-things" class="section-container">
+      <div class="mb-12 text-center">
+        <div style="margin-bottom:0.6rem;"><span class="handwritten-note" style="font-size:1.4rem;color:var(--accent-rose);">tiny fragments</span></div>
+        <h2 style="font-size:clamp(2.2rem, 5.2vw, 3.8rem);color:var(--text-heading);font-family:var(--font-serif);font-weight:400;line-height:1.2;margin-bottom:0.75rem;">The Little Things.</h2>
+        <p class="text-subtitle" style="max-width:650px;margin:0 auto;color:var(--text-body);">Small daily messages that mean more than they seem.</p>
+      </div>
+
+      <div style="text-align:center;margin-bottom:2.5rem;">
+        <span class="handwritten-note" style="font-size:1.45rem;color:var(--text-deep);">"I don't know why these little things matter so much... but somehow, they do."</span>
+      </div>
+
+      <div style="max-width:780px;margin:0 auto;background:#FFFDFC;border:1px solid rgba(217, 107, 131, 0.18);border-radius:24px;padding:clamp(2rem, 5vw, 3.5rem) clamp(1.5rem, 4vw, 3rem);box-shadow:0 20px 50px rgba(180, 90, 110, 0.08), 0 2px 10px rgba(100, 40, 55, 0.03);position:relative;">
+        <div style="position:absolute;top:-12px;left:30px;width:90px;height:24px;background:rgba(246, 214, 221, 0.6);transform:rotate(-4deg);border-radius:2px;box-shadow:0 2px 4px rgba(0,0,0,0.03);"></div>
+        <div style="position:absolute;bottom:-12px;right:30px;width:90px;height:24px;background:rgba(253, 236, 239, 0.8);transform:rotate(3deg);border-radius:2px;box-shadow:0 2px 4px rgba(0,0,0,0.03);"></div>
+
+        <div style="text-align:center;margin-bottom:2.5rem;">
+          <span class="handwritten-note" style="font-size:1.6rem;color:var(--accent-rose);">♡ little thoughts from daily conversations</span>
+          <div style="width:60px;height:1px;background:rgba(217, 107, 131, 0.25);margin:0.5rem auto 0;"></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2.2rem;">
+          <div style="align-self:flex-start;max-width:480px;width:100%;transform:rotate(-1.5deg);position:relative;">
+            <div>
+              <p class="font-serif text-gradient-rose" style="font-size:1.65rem;margin:0 0 0.2rem;font-weight:400;display:inline-block;border-bottom:1px solid var(--accent-rose);">"Lunch hua?"</p>
+              <div style="display:flex;align-items:center;gap:0.4rem;margin-top:0.2rem;"><span style="color:var(--accent-rose);font-size:0.9rem;">♡</span><span class="handwritten-note" style="font-size:1.25rem;color:var(--text-body);">just checking...</span></div>
+            </div>
+            <div style="text-align:center;margin-top:0.6rem;color:var(--accent-rose);opacity:0.65;font-size:1.2rem;">↓</div>
+          </div>
+
+          <div style="align-self:flex-end;max-width:480px;width:100%;transform:rotate(1.8deg);position:relative;">
+            <div style="background:rgba(253, 236, 239, 0.45);padding:1.1rem 1.4rem;border-radius:12px;border-left:2px dashed var(--accent-rose);position:relative;">
+              <p class="font-serif text-deep" style="font-size:1.5rem;margin:0 0 0.2rem;font-weight:500;">"Dinner kar liya?"</p>
+              <span class="handwritten-note" style="font-size:1.2rem;color:var(--accent-rose);">♡ making sure...</span>
+            </div>
+            <div style="text-align:center;margin-top:0.6rem;color:var(--accent-rose);opacity:0.65;font-size:1.2rem;">↓</div>
+          </div>
+
+          <div style="align-self:center;max-width:480px;width:100%;transform:rotate(-0.8deg);position:relative;">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:0.5rem;flex-wrap:wrap;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><span class="font-serif text-deep" style="font-size:1.6rem;font-weight:400;">"Take care 🎀"</span></div>
+              <span class="handwritten-note" style="font-size:1.25rem;color:var(--accent-rose);padding-left:1.5rem;display:block;margin-top:0.1rem;">~ always</span>
+            </div>
+          </div>
+
+          <div style="align-self:flex-start;max-width:480px;width:100%;transform:rotate(2.2deg);position:relative;">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:0.5rem;flex-wrap:wrap;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><span class="font-serif text-deep" style="font-size:1.6rem;font-weight:400;">"Wake up."</span></div>
+              <span class="handwritten-note" style="font-size:1.25rem;color:var(--accent-rose);padding-left:1.5rem;display:block;margin-top:0.1rem;">~ morning energy ☀️</span>
+            </div>
+          </div>
+
+          <div style="align-self:flex-end;max-width:480px;width:100%;transform:rotate(-2deg);position:relative;">
+            <div style="background:#FFFDFC;padding:1.2rem 1.4rem;border-radius:8px;border:1px solid rgba(217, 107, 131, 0.2);box-shadow:0 4px 14px rgba(180, 90, 110, 0.05);">
+              <p class="font-serif text-gradient-rose" style="font-size:1.55rem;margin:0 0 0.3rem;font-weight:500;">"Reached home?"</p>
+              <span class="handwritten-note" style="font-size:1.15rem;color:var(--text-muted);">📌 safety check</span>
+            </div>
+            <div style="text-align:center;margin-top:0.6rem;color:var(--accent-rose);opacity:0.65;font-size:1.2rem;">↓</div>
+          </div>
+
+          <div style="align-self:center;max-width:480px;width:100%;transform:rotate(1.2deg);position:relative;">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:0.5rem;flex-wrap:wrap;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><span class="font-serif text-deep" style="font-size:1.6rem;font-weight:400;">"Don't be angry on me."</span></div>
+              <span class="handwritten-note" style="font-size:1.25rem;color:var(--accent-rose);padding-left:1.5rem;display:block;margin-top:0.1rem;">~ after 😡 emoji</span>
+            </div>
+          </div>
+
+          <div style="align-self:flex-start;max-width:480px;width:100%;transform:rotate(-2.2deg);position:relative;">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:0.5rem;flex-wrap:wrap;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><span class="font-serif text-deep" style="font-size:1.6rem;font-weight:400;">"I am worried for you."</span></div>
+              <span class="handwritten-note" style="font-size:1.25rem;color:var(--accent-rose);padding-left:1.5rem;display:block;margin-top:0.1rem;">~ because I care</span>
+            </div>
+          </div>
+
+          <div style="align-self:flex-end;max-width:480px;width:100%;transform:rotate(1.5deg);position:relative;">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:0.5rem;flex-wrap:wrap;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><span class="font-serif text-deep" style="font-size:1.6rem;font-weight:400;">"I hope you ate."</span></div>
+              <span class="handwritten-note" style="font-size:1.25rem;color:var(--accent-rose);padding-left:1.5rem;display:block;margin-top:0.1rem;">~ don't skip meals</span>
+            </div>
+          </div>
+
+          <div style="align-self:center;max-width:480px;width:100%;transform:rotate(-1.4deg);position:relative;">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:0.5rem;flex-wrap:wrap;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><span class="font-serif text-deep" style="font-size:1.6rem;font-weight:400;">"You should sleep."</span></div>
+              <span class="handwritten-note" style="font-size:1.25rem;color:var(--accent-rose);padding-left:1.5rem;display:block;margin-top:0.1rem;">~ late nights ✨</span>
+            </div>
+          </div>
+
+          <div style="align-self:flex-start;max-width:480px;width:100%;transform:rotate(2deg);position:relative;">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:0.5rem;flex-wrap:wrap;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><span class="font-serif text-deep" style="font-size:1.6rem;font-weight:400;">"Call me when you're free."</span></div>
+              <span class="handwritten-note" style="font-size:1.25rem;color:var(--accent-rose);padding-left:1.5rem;display:block;margin-top:0.1rem;">~ no pressure</span>
+            </div>
+          </div>
+
+          <div style="align-self:flex-end;max-width:480px;width:100%;transform:rotate(-1.8deg);position:relative;">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:0.5rem;flex-wrap:wrap;"><span style="color:var(--accent-rose);font-size:1.1rem;">♡</span><span class="font-serif text-deep" style="font-size:1.6rem;font-weight:400;">"Did you reach safely?"</span></div>
+              <span class="handwritten-note" style="font-size:1.25rem;color:var(--accent-rose);padding-left:1.5rem;display:block;margin-top:0.1rem;">~ late commutes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 7: THE LIFE I IMAGINE
+         ========================================== -->
+    <section id="the-life-i-imagine" class="section-container">
+      <div class="mb-12 text-center">
+        <div style="margin-bottom:0.6rem;"><span class="handwritten-note" style="font-size:1.4rem;color:var(--accent-rose);">aspirations</span></div>
+        <h2 style="font-size:clamp(2.2rem, 5.2vw, 3.8rem);color:var(--text-heading);font-family:var(--font-serif);font-weight:400;line-height:1.2;margin-bottom:0.75rem;">Some Dreams I'd Love To Fulfil.</h2>
+        <p class="text-subtitle" style="max-width:650px;margin:0 auto;color:var(--text-body);">If someday...</p>
+      </div>
+
+      <div style="max-width:780px;margin:0 auto 3rem;text-align:center;">
+        <span class="handwritten-note" style="font-size:1.55rem;color:var(--accent-rose);">♡ "I don't even know if cars are your thing."</span>
+        <h3 class="font-serif text-gradient-rose" style="font-size:clamp(1.7rem, 4vw, 2.3rem);margin:1rem 0;font-weight:400;">
+          "Maybe you love them.<br>
+          Maybe you couldn't care less about them.<br>
+          I honestly don't know yet."
+        </h3>
+
+        <p class="font-serif text-subtitle" style="font-size:1.35rem;color:var(--text-deep);line-height:1.85;max-width:680px;margin:0 auto 1.5rem;">
+          But if one day you point at a car and say,<br>
+          <span class="text-rose font-serif" style="font-size:1.55rem;font-weight:500;">"I'd love to have that someday..."</span><br><br>
+          I'd want to be the person who says,<br>
+          <span class="text-gradient-rose font-serif" style="font-size:1.6rem;font-weight:500;">"Let's make it happen."</span>
+        </p>
+
+        <p style="color:var(--text-body);max-width:640px;margin:0 auto;font-size:1.05rem;line-height:1.75;">
+          Supercar. Sports car. Luxury car. Or something completely unexpected.<br>
+          <strong style="color:var(--text-deep);">Whatever makes you genuinely happy, I'd love to help make that dream possible.</strong>
+        </p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:1.5rem;margin-bottom:3rem;">
+        <div style="padding-bottom:1rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <span class="handwritten-note" style="font-size:1.25rem;color:var(--accent-rose);">♡ A Possibility</span>
+          <h4 class="font-serif text-gradient-rose" style="font-size:1.35rem;margin:0.2rem 0 0.4rem;font-weight:400;">Supercar</h4>
+          <p style="font-size:0.94rem;color:var(--text-body);margin:0;">V12 engines, sleek aerodynamics, track power.</p>
+        </div>
+        <div style="padding-bottom:1rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <span class="handwritten-note" style="font-size:1.25rem;color:var(--accent-rose);">♡ If You Ever Wish</span>
+          <h4 class="font-serif text-gradient-rose" style="font-size:1.35rem;margin:0.2rem 0 0.4rem;font-weight:400;">Sports Coupe</h4>
+          <p style="font-size:0.94rem;color:var(--text-body);margin:0;">Agile handling, twin-turbo growl, mountain roads.</p>
+        </div>
+        <div style="padding-bottom:1rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <span class="handwritten-note" style="font-size:1.25rem;color:var(--accent-rose);">♡ Pure Comfort</span>
+          <h4 class="font-serif text-gradient-rose" style="font-size:1.35rem;margin:0.2rem 0 0.4rem;font-weight:400;">Luxury SUV</h4>
+          <p style="font-size:0.94rem;color:var(--text-body);margin:0;">Plush interiors, effortless cruising.</p>
+        </div>
+        <div style="padding-bottom:1rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <span class="handwritten-note" style="font-size:1.25rem;color:var(--accent-rose);">♡ Whatever You Love</span>
+          <h4 class="font-serif text-gradient-rose" style="font-size:1.35rem;margin:0.2rem 0 0.4rem;font-weight:400;">Grand Tourer</h4>
+          <p style="font-size:0.94rem;color:var(--text-body);margin:0;">Smooth long-distance continent crossing.</p>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <p class="handwritten-note" style="font-size:1.45rem;color:var(--accent-rose);">"I don't pretend to know everything you like yet... I just want to be there to discover it with you."</p>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 8: THE WORLD
+         ========================================== -->
+    <section id="the-world" class="section-container">
+      <div class="mb-12 text-center">
+        <div style="margin-bottom:0.6rem;"><span class="handwritten-note" style="font-size:1.4rem;color:var(--accent-rose);">destinations</span></div>
+        <h2 style="font-size:clamp(2.2rem, 5.2vw, 3.8rem);color:var(--text-heading);font-family:var(--font-serif);font-weight:400;line-height:1.2;margin-bottom:0.75rem;">Then We'll Go.</h2>
+        <p class="text-subtitle" style="max-width:650px;margin:0 auto;color:var(--text-body);">I'd love to take you to places you've never seen.</p>
+      </div>
+
+      <div class="scrapbook-note mb-12" style="max-width:720px;margin:0 auto 3.5rem;background:#fffdfc;transform:rotate(0.5deg);">
+        <span class="handwritten-note mb-2" style="font-size:1.5rem;color:var(--accent-rose);">♡ Special Spotlight: Monaco</span>
+        <h3 class="font-serif text-gradient-rose" style="font-size:2rem;margin-bottom:0.75rem;font-weight:400;">Monaco</h3>
+        <p class="font-serif text-subtitle" style="font-size:1.3rem;color:var(--text-deep);line-height:1.85;margin:0;">
+          "Monaco is on my list for a very specific reason... supercars everywhere.<br>
+          And honestly, I'd love to take you there someday.<br><br>
+          <span class="text-rose font-serif" style="font-size:1.45rem;font-weight:500;">
+            Maybe you'll love the cars too.<br>
+            Maybe you'll just enjoy the view.<br>
+            Maybe you'll wonder why I keep staring at every Ferrari. 😂
+          </span>"
+        </p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:2rem;">
+        <div style="padding-bottom:1rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.4rem;">
+            <h4 class="font-serif text-gradient-rose" style="font-size:1.4rem;margin:0;font-weight:400;">Monaco 🇲🇨</h4>
+            <span class="handwritten-note" style="font-size:1.2rem;color:var(--text-muted);">The Supercar Capital</span>
+          </div>
+          <p style="font-size:0.98rem;color:var(--text-body);margin:0;line-height:1.65;">Monaco is on my list for the supercars everywhere — and I'd love to take you there. Maybe you'll love the cars too, or maybe you'll just wonder why I keep staring at every Ferrari. 😂</p>
+        </div>
+
+        <div style="padding-bottom:1rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.4rem;">
+            <h4 class="font-serif text-gradient-rose" style="font-size:1.4rem;margin:0;font-weight:400;">Paris</h4>
+            <span class="handwritten-note" style="font-size:1.2rem;color:var(--text-muted);">Sunsets & Cafes</span>
+          </div>
+          <p style="font-size:0.98rem;color:var(--text-body);margin:0;line-height:1.65;">Walking through quiet streets, sipping coffee, and watching the lights come on.</p>
+        </div>
+
+        <div style="padding-bottom:1rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.4rem;">
+            <h4 class="font-serif text-gradient-rose" style="font-size:1.4rem;margin:0;font-weight:400;">Tokyo</h4>
+            <span class="handwritten-note" style="font-size:1.2rem;color:var(--text-muted);">Neon & Serenity</span>
+          </div>
+          <p style="font-size:0.98rem;color:var(--text-body);margin:0;line-height:1.65;">Spontaneous late-night ramen, quiet shrines, and neon-lit avenues.</p>
+        </div>
+
+        <div style="padding-bottom:1rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.4rem;">
+            <h4 class="font-serif text-gradient-rose" style="font-size:1.4rem;margin:0;font-weight:400;">Switzerland</h4>
+            <span class="handwritten-note" style="font-size:1.2rem;color:var(--text-muted);">Snow & Solitude</span>
+          </div>
+          <p style="font-size:0.98rem;color:var(--text-body);margin:0;line-height:1.65;">Fresh mountain air, wooden chalets, and scenic train rides through the Alps.</p>
+        </div>
+
+        <div style="padding-bottom:1rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.4rem;">
+            <h4 class="font-serif text-gradient-rose" style="font-size:1.4rem;margin:0;font-weight:400;">Italy</h4>
+            <span class="handwritten-note" style="font-size:1.2rem;color:var(--text-muted);">Amalfi Coast Drives</span>
+          </div>
+          <p style="font-size:0.98rem;color:var(--text-body);margin:0;line-height:1.65;">Driving along coastal cliffs with the sea breeze and endless authentic pasta dates.</p>
+        </div>
+
+        <div style="padding-bottom:1rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.4rem;">
+            <h4 class="font-serif text-gradient-rose" style="font-size:1.4rem;margin:0;font-weight:400;">Dubai</h4>
+            <span class="handwritten-note" style="font-size:1.2rem;color:var(--text-muted);">Desert & Skyline</span>
+          </div>
+          <p style="font-size:0.98rem;color:var(--text-body);margin:0;line-height:1.65;">Stargazing in the calm desert under midnight skies and city lights.</p>
+        </div>
+
+        <div style="padding-bottom:1rem;border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.4rem;">
+            <h4 class="font-serif text-gradient-rose" style="font-size:1.4rem;margin:0;font-weight:400;">Maldives</h4>
+            <span class="handwritten-note" style="font-size:1.2rem;color:var(--text-muted);">Crystal Waters</span>
+          </div>
+          <p style="font-size:0.98rem;color:var(--text-body);margin:0;line-height:1.65;">Overwater bungalows, ocean sunsets, and absolute peace.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 9: MY FAMILY
+         ========================================== -->
+    <section id="my-family" class="section-container">
+      <div class="mb-12 text-center">
+        <div style="margin-bottom:0.6rem;"><span class="handwritten-note" style="font-size:1.4rem;color:var(--accent-rose);">roots & values</span></div>
+        <h2 style="font-size:clamp(2.2rem, 5.2vw, 3.8rem);color:var(--text-heading);font-family:var(--font-serif);font-weight:400;line-height:1.2;margin-bottom:0.75rem;">I Should Tell You About The Life I Come From.</h2>
+        <p class="text-subtitle" style="max-width:650px;margin:0 auto;color:var(--text-body);">Honest transparency about who I am and where I come from.</p>
+      </div>
+
+      <div style="max-width:820px;margin:0 auto;text-align:center;">
+        <span class="handwritten-note mb-2" style="font-size:1.6rem;color:var(--accent-rose);">♡ "This is the home I come from."</span>
+        <h3 class="font-serif text-gradient-rose" style="font-size:1.75rem;margin:0.75rem 0 1.75rem;font-weight:400;">I grew up in a joint family.</h3>
+
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.75rem;margin-bottom:2.5rem;">
+          <span class="handwritten-note" style="padding:0.4rem 1.1rem;font-size:1.35rem;border-radius:var(--radius-full);background:rgba(253, 236, 239, 0.7);border:1px solid rgba(217, 107, 131, 0.25);color:var(--text-deep);">Grandfather</span>
+          <span class="handwritten-note" style="padding:0.4rem 1.1rem;font-size:1.35rem;border-radius:var(--radius-full);background:rgba(253, 236, 239, 0.7);border:1px solid rgba(217, 107, 131, 0.25);color:var(--text-deep);">Grandmother</span>
+          <span class="handwritten-note" style="padding:0.4rem 1.1rem;font-size:1.35rem;border-radius:var(--radius-full);background:rgba(253, 236, 239, 0.7);border:1px solid rgba(217, 107, 131, 0.25);color:var(--text-deep);">Uncle</span>
+          <span class="handwritten-note" style="padding:0.4rem 1.1rem;font-size:1.35rem;border-radius:var(--radius-full);background:rgba(253, 236, 239, 0.7);border:1px solid rgba(217, 107, 131, 0.25);color:var(--text-deep);">Aunt</span>
+          <span class="handwritten-note" style="padding:0.4rem 1.1rem;font-size:1.35rem;border-radius:var(--radius-full);background:rgba(253, 236, 239, 0.7);border:1px solid rgba(217, 107, 131, 0.25);color:var(--text-deep);">Cousins</span>
+          <span class="handwritten-note" style="padding:0.4rem 1.1rem;font-size:1.35rem;border-radius:var(--radius-full);background:rgba(253, 236, 239, 0.7);border:1px solid rgba(217, 107, 131, 0.25);color:var(--text-deep);">Mother</span>
+          <span class="handwritten-note" style="padding:0.4rem 1.1rem;font-size:1.35rem;border-radius:var(--radius-full);background:rgba(253, 236, 239, 0.7);border:1px solid rgba(217, 107, 131, 0.25);color:var(--text-deep);">Sister</span>
+          <span class="handwritten-note" style="padding:0.4rem 1.1rem;font-size:1.35rem;border-radius:var(--radius-full);background:var(--accent-light-rose);border:1px solid rgba(217, 107, 131, 0.25);color:var(--text-deep);">Me</span>
+        </div>
+
+        <div style="text-align:left;background:rgba(253, 236, 239, 0.5);padding:2rem;border-radius:var(--radius-md);border-left:3px solid var(--accent-rose);">
+          <p style="color:var(--text-body);font-size:1.05rem;line-height:1.85;margin-bottom:1.25rem;">"If someday life takes us far enough to build something together, I want you to know that my family will always be a deeply important part of my life."</p>
+          <p style="color:var(--text-body);font-size:1.05rem;line-height:1.85;margin-bottom:1.25rem;">
+            <strong class="text-rose font-serif" style="font-size:1.25rem;">"I would never want you to feel like you have to choose between me and them.</strong> And I don't want to choose between the people I love either."
+          </p>
+          <p class="font-serif text-gradient-rose" style="font-size:1.3rem;margin:0;font-style:italic;">"The only thing I would hope for is that, if life ever takes us there, we learn how to make space for each other."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 10: WHEN YOU'RE ANGRY
+         ========================================== -->
+    <section id="when-youre-angry" class="section-container">
+      <div class="mb-12 text-center">
+        <div style="margin-bottom:0.6rem;"><span class="handwritten-note" style="font-size:1.4rem;color:var(--accent-rose);">conflict resolution</span></div>
+        <h2 style="font-size:clamp(2.2rem, 5.2vw, 3.8rem);color:var(--text-heading);font-family:var(--font-serif);font-weight:400;line-height:1.2;margin-bottom:0.75rem;">I Already Know One Thing...</h2>
+        <p class="text-subtitle" style="max-width:650px;margin:0 auto;color:var(--text-body);">What happens when I inevitably mess up.</p>
+      </div>
+
+      <div style="max-width:750px;margin:0 auto;text-align:center;">
+        <span class="handwritten-note mb-2" style="font-size:1.5rem;color:var(--accent-rose);">♡ "don't judge me 😂"</span>
+        <h3 class="font-serif text-gradient-rose" style="font-size:1.75rem;margin:0.75rem 0 1.25rem;font-weight:400;">"If I ever become stupid enough to make the same mistake twice..."</h3>
+        <p style="color:var(--text-body);font-size:1.08rem;line-height:1.85;margin-bottom:2rem;">
+          Maybe someday, if we're close enough, you'll be the person who tells me when I'm being stupid.<br>
+          I'd probably deserve it sometimes. 😂
+        </p>
+
+        <div style="padding:1.5rem;border-left:3px solid var(--accent-rose);background:rgba(253, 236, 239, 0.5);margin:1.5rem 0;text-align:center;">
+          <p class="font-serif text-gradient-rose" style="font-size:1.4rem;margin:0;font-weight:500;">
+            "If I ever get it wrong, I'll always listen and try to make things right.<br>
+            Because understanding each other matters most."
+          </p>
+        </div>
+
+        <div style="margin-top:2.5rem;">
+          <button id="conflictDealBtn" class="btn-romantic-link" style="font-size:1.45rem;">
+            <span>Proposed Deal: Always Talk It Out! 😂</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 11: WHEN YOU DRINK
+         ========================================== -->
+    <section id="when-you-drink" class="section-container">
+      <div class="mb-12 text-center">
+        <div style="margin-bottom:0.6rem;"><span class="handwritten-note" style="font-size:1.4rem;color:var(--accent-rose);">caring boundaries</span></div>
+        <h2 style="font-size:clamp(2.2rem, 5.2vw, 3.8rem);color:var(--text-heading);font-family:var(--font-serif);font-weight:400;line-height:1.2;margin-bottom:0.75rem;">When You Drink.</h2>
+        <p class="text-subtitle" style="max-width:650px;margin:0 auto;color:var(--text-body);">Worrying without controlling.</p>
+      </div>
+
+      <div style="max-width:780px;margin:0 auto;text-align:center;">
+        <span class="handwritten-note mb-2" style="font-size:1.5rem;color:var(--accent-rose);">♡ "yes, I remember this."</span>
+        <p class="font-serif text-subtitle" style="font-size:1.35rem;color:var(--text-deep);line-height:1.85;margin-bottom:2rem;">
+          "I know you drink sometimes.<br>
+          I'm not a fan of it. I'd probably still tell you to stop because I worry about your health.<br>
+          <strong class="text-rose">But I'm not here to control you.</strong>"
+        </p>
+
+        <div style="background:rgba(253, 236, 239, 0.5);border-left:3px solid var(--accent-rose);padding:1.75rem;margin:2rem 0;text-align:left;">
+          <span class="handwritten-note mb-1" style="font-size:1.35rem;color:var(--accent-rose);">The Imagined Scene</span>
+          <p style="color:var(--text-body);font-size:1.02rem;line-height:1.8;margin:0;">"If someday you're completely drunk, I'll probably be the idiot quietly getting you home safely, making sure you're comfortable, getting you water, and waiting until you fall asleep peacefully."</p>
+        </div>
+
+        <div style="padding:1.25rem;margin-top:1.5rem;">
+          <span class="font-serif text-deep" style="font-size:1.25rem;font-weight:500;">"One tiny condition though..."</span>
+          <p class="text-gradient-rose font-serif" style="font-size:1.45rem;font-weight:500;margin:0.4rem 0 0;">"Please don't turn into a professional boxer after two drinks. 😂"</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 12: SAFETY
+         ========================================== -->
+    <section id="safety-section" class="section-container">
+      <div class="mb-12 text-center">
+        <div style="margin-bottom:0.6rem;"><span class="handwritten-note" style="font-size:1.4rem;color:var(--accent-rose);">presence</span></div>
+        <h2 style="font-size:clamp(2.2rem, 5.2vw, 3.8rem);color:var(--text-heading);font-family:var(--font-serif);font-weight:400;line-height:1.2;margin-bottom:0.75rem;">If You Ever Need Someone, I'm Here.</h2>
+        <p class="text-subtitle" style="max-width:650px;margin:0 auto;color:var(--text-body);">A quiet promise of presence.</p>
+      </div>
+
+      <div style="max-width:780px;margin:0 auto;text-align:center;">
+        <span class="handwritten-note mb-2" style="font-size:1.55rem;color:var(--accent-rose);">♡ "I'd like to be someone you can count on."</span>
+        <p class="font-serif text-subtitle" style="font-size:1.35rem;color:var(--text-deep);line-height:1.85;margin-bottom:1.75rem;">
+          "I don't know everything you're carrying.<br>
+          I don't know every difficult day you'll have.<br>
+          And I don't want to pretend that I know."
+        </p>
+        <p class="font-serif text-gradient-rose" style="font-size:1.45rem;font-weight:500;line-height:1.7;margin-bottom:1.75rem;">
+          "But if someday you need someone to listen, talk, sit quietly with you, or simply be there..."<br>
+          <span class="text-rose" style="font-size:1.55rem;display:block;margin-top:0.4rem;">"I'd want to be that person."</span>
+        </p>
+        <p style="color:var(--text-body);font-size:1.05rem;line-height:1.8;max-width:640px;margin:0 auto 2rem;">
+          "I can't promise that life will always be easy.<br>
+          But I can promise that, if you become important to me, I'll want to be there through the difficult days too."
+        </p>
+        <div style="display:inline-flex;align-items:center;gap:0.6rem;padding:0.75rem 1.75rem;border-radius:var(--radius-full);background:rgba(253, 236, 239, 0.7);border:1px solid rgba(217, 107, 131, 0.2);">
+          <span class="handwritten-note" style="font-size:1.45rem;color:var(--accent-rose);">"Maybe someday, you'll know you can call me."</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 13: WHAT I REALLY WANT
+         ========================================== -->
+    <section id="what-i-really-want" style="background:linear-gradient(180deg, #fff7f5 0%, #fdecef 50%, #fff7f5 100%);padding:9rem 1.5rem;text-align:center;position:relative;z-index:2;border-top:1px solid rgba(217, 107, 131, 0.15);border-bottom:1px solid rgba(217, 107, 131, 0.15);">
+      <div style="max-width:820px;margin:0 auto;">
+        <div style="margin-bottom:3.5rem;">
+          <span class="handwritten-note" style="font-size:1.6rem;color:var(--accent-rose);">what I really want...</span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2.25rem;">
+          <p class="font-serif" style="font-size:1.45rem;color:var(--text-body);font-weight:300;line-height:1.35;margin:0;">I don't need you to say yes today.</p>
+          <p class="font-serif" style="font-size:1.45rem;color:var(--text-body);font-weight:300;line-height:1.35;margin:0;">I don't need you to call this a relationship.</p>
+          <p class="font-serif" style="font-size:1.45rem;color:var(--text-body);font-weight:300;line-height:1.35;margin:0;">I don't need you to promise me anything.</p>
+          <p class="font-serif" style="font-size:1.85rem;color:var(--text-heading);font-weight:300;line-height:1.35;margin:0;">I just want the chance to know you better.</p>
+          <p class="font-serif" style="font-size:1.55rem;color:var(--text-body);font-weight:300;line-height:1.35;margin:0;">I want to know you.</p>
+          <p class="font-serif" style="font-size:1.55rem;color:var(--text-body);font-weight:300;line-height:1.35;margin:0;">I want you to know me.</p>
+          <p class="font-serif" style="font-size:1.65rem;color:var(--text-body);font-weight:300;line-height:1.35;margin:0;">I want us to have enough conversations that one day...</p>
+          <p class="font-serif" style="font-size:clamp(2.2rem, 5.5vw, 3.8rem);color:var(--text-heading);font-weight:500;line-height:1.35;margin:0;">...you don't have to wonder whether our vibes match.</p>
+          <p class="font-serif" style="font-size:2.1rem;color:var(--text-heading);font-weight:500;line-height:1.35;margin:0;">You'll just know.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 14: FUTURE CHAPTERS
+         ========================================== -->
+    <section id="future-chapters" class="section-container">
+      <div class="mb-12 text-center">
+        <div style="margin-bottom:0.6rem;"><span class="handwritten-note" style="font-size:1.4rem;color:var(--accent-rose);">the journey ahead</span></div>
+        <h2 style="font-size:clamp(2.2rem, 5.2vw, 3.8rem);color:var(--text-heading);font-family:var(--font-serif);font-weight:400;line-height:1.2;margin-bottom:0.75rem;">Waiting For The Vibes.</h2>
+        <p class="text-subtitle" style="max-width:650px;margin:0 auto;color:var(--text-body);">Chapter by chapter, without rushing.</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:2rem;max-width:720px;margin:0 auto;">
+        <div style="padding-left:1.5rem;border-left:2px solid var(--accent-rose);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+            <span class="handwritten-note" style="font-size:1.45rem;color:var(--accent-rose);">♡ NOW</span>
+            <div style="display:flex;align-items:center;gap:0.4rem;color:var(--accent-rose);font-size:0.85rem;">
+              <span>🔓 Unlocked</span>
+            </div>
+          </div>
+          <h3 class="font-serif" style="font-size:1.55rem;color:var(--text-deep);margin-bottom:0.4rem;font-weight:400;">Getting to know each other</h3>
+          <p style="font-size:1.02rem;color:var(--text-body);margin:0;line-height:1.65;">Talking, sharing stories, discovering each other's routines, habits, and values.</p>
+        </div>
+
+        <div style="padding-left:1.5rem;border-left:2px solid var(--accent-rose);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+            <span class="handwritten-note" style="font-size:1.45rem;color:var(--accent-rose);">♡ LATER</span>
+            <div style="display:flex;align-items:center;gap:0.4rem;color:var(--accent-rose);font-size:0.85rem;">
+              <span>🔓 Unlocked</span>
+            </div>
+          </div>
+          <h3 class="font-serif" style="font-size:1.55rem;color:var(--text-deep);margin-bottom:0.4rem;font-weight:400;">Finding the things that make us laugh</h3>
+          <p style="font-size:1.02rem;color:var(--text-body);margin:0;line-height:1.65;">Building inside jokes, finding comfort in silence, and being completely ourselves.</p>
+        </div>
+
+        <div style="padding-left:1.5rem;border-left:2px solid rgba(217, 107, 131, 0.2);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+            <span class="handwritten-note" style="font-size:1.45rem;color:var(--text-muted);">♡ SOMEDAY</span>
+            <div style="display:flex;align-items:center;gap:0.4rem;color:var(--text-muted);font-size:0.85rem;">
+              <span>🔒 Not Unlocked Yet</span>
+            </div>
+          </div>
+          <h3 class="font-serif" style="font-size:1.55rem;color:var(--text-muted);margin-bottom:0.4rem;font-weight:400;">Seeing whether this became something real</h3>
+          <p style="font-size:1.02rem;color:var(--text-muted);margin:0;line-height:1.65;">That's okay. I'm patient.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 15: FINAL LETTER
+         ========================================== -->
+    <section id="final-letter" class="section-container">
+      <div class="mb-12 text-center">
+        <div style="margin-bottom:0.6rem;"><span class="handwritten-note" style="font-size:1.4rem;color:var(--accent-rose);">a letter for you</span></div>
+        <h2 style="font-size:clamp(2.2rem, 5.2vw, 3.8rem);color:var(--text-heading);font-family:var(--font-serif);font-weight:400;line-height:1.2;margin-bottom:0.75rem;">For Arya.</h2>
+        <p class="text-subtitle" style="max-width:650px;margin:0 auto;color:var(--text-body);">Written from the heart.</p>
+      </div>
+
+      <div class="paper-letter-surface" style="max-width:820px;margin:0 auto;">
+        <div style="margin-bottom:2.5rem;">
+          <span class="handwritten-note" style="font-size:2.4rem;color:var(--accent-rose);display:block;margin-bottom:0.2rem;">For Arya ♡</span>
+          <svg width="150" height="12" viewBox="0 0 150 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.75;">
+            <path d="M4 8C40 2 105 3 146 9" stroke="var(--accent-rose)" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div class="font-serif" style="color:var(--text-deep);font-size:clamp(1.1rem, 2.1vw, 1.3rem);line-height:1.9;">
+          <p style="margin-bottom:1.25rem;">Maybe I'm getting ahead of myself.</p>
+          <p style="margin-bottom:1.25rem;">Maybe I'm imagining too many things too soon.</p>
+          <p style="margin-bottom:1.25rem;">But I can't help it. I like you. A lot.</p>
+          <p style="margin-bottom:1.25rem;">
+            And somewhere between asking whether you had lunch, wondering whether you reached home, getting worried when you disappear, laughing over stupid things, and apologising over one completely misunderstood emoji...<br>
+            <strong style="color:var(--accent-rose);font-weight:600;">you became someone I genuinely care about.</strong>
+          </p>
+          <p style="margin-bottom:1.25rem;">
+            I know you don't know me enough yet. That's okay.<br>
+            I'm not asking you to decide. Take your time. Know me properly. Let me know you properly.
+          </p>
+          <p style="margin-bottom:1.5rem;font-style:italic;color:var(--text-heading);">
+            And if one day you look at everything we've built between these conversations and think...<br>
+            <span style="font-size:1.4rem;font-weight:600;color:var(--text-deep);font-style:normal;">'Yeah. Our vibes actually do match.'</span><br>
+            Then maybe we can start writing the next chapter.
+          </p>
+          <p style="margin-bottom:1.5rem;">
+            Until then... I'll just be here.<br>
+            Learning you. Supporting you. Annoying you a little. Making sure you eat. Arguing about stupid things. Apologising when I'm wrong.
+          </p>
+          <p style="margin-bottom:2.5rem;font-size:1.35rem;color:var(--accent-rose);font-weight:500;">
+            And hoping that someday, when you think about the future, I'm somewhere in it.
+          </p>
+
+          <div style="text-align:right;margin-top:3.5rem;border-top:1px solid rgba(217, 107, 131, 0.15);padding-top:1.5rem;display:flex;flex-direction:column;align-items:flex-end;">
+            <span class="handwritten-note" style="font-size:2.4rem;color:var(--accent-rose);line-height:1;">— Siddharth</span>
+            <div style="display:flex;flex-direction:column;align-items:center;margin-top:0.25rem;padding-right:1.2rem;">
+              <span class="handwritten-note" style="font-size:1.3rem;color:var(--accent-rose);line-height:1;">♡</span>
+              <svg width="110" height="10" viewBox="0 0 110 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.6;margin-top:2px;">
+                <path d="M3 6C28 2 75 3 107 7" stroke="var(--accent-rose)" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 16: CLOSING MOMENT & WHATSAPP CTA
+         ========================================== -->
+    <section id="closing-moment" style="min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 1.5rem 6rem;position:relative;z-index:2;">
+      <div style="max-width:650px;width:100%;">
+        <span class="handwritten-note mb-3" style="font-size:1.6rem;color:var(--accent-rose);">♡ closing thought</span>
+        <h2 class="text-heading text-gradient-rose mb-6" style="font-size:clamp(2.2rem, 5vw, 3.5rem);margin-bottom:1.75rem;font-weight:400;">One last thing...</h2>
+        
+        <p class="font-serif text-subtitle" style="font-size:1.35rem;color:var(--text-deep);line-height:1.85;margin-bottom:1.25rem;">You don't have to answer anything right now.</p>
+        <p class="font-serif text-subtitle" style="font-size:1.35rem;color:var(--text-deep);line-height:1.85;margin-bottom:1.5rem;">I just wanted you to know what was in my heart.</p>
+        
+        <p style="color:var(--text-body);font-size:1.1rem;line-height:1.8;max-width:520px;margin:0 auto 2.5rem;">
+          Take your time.<br>
+          Get to know me.<br>
+          And let's see where our vibes take us.
+        </p>
+
+        <div style="margin-top:2rem;display:flex;flex-direction:column;align-items:center;gap:0.8rem;">
+          <span class="handwritten-note" style="font-size:1.5rem;color:var(--accent-rose);">You made it all the way here... ♡</span>
+          <p class="font-serif text-subtitle" style="font-size:1.25rem;color:var(--text-deep);margin:0;line-height:1.7;">
+            So, if there's anything I got wrong, you can correct me.<br>
+            And if I somehow managed to make you smile, I'll take that as a win. :)
+          </p>
+          <p style="color:var(--text-body);font-size:1.05rem;margin:0.4rem 0 0.8rem;">Now you know what's been on my mind.</p>
+          
+          <a href="https://api.whatsapp.com/send?text=I%20made%20it%20to%20the%20end.%20%F0%9F%98%8A" target="_blank" rel="noopener noreferrer" class="btn-romantic-link" style="font-size:1.55rem;font-family:var(--font-handwriting);color:var(--accent-rose);text-decoration:none;display:inline-block;padding-bottom:2px;border-bottom:1px dashed var(--accent-rose);">
+            <span>Just message me on WhatsApp. ♡</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Vanilla JavaScript -->
+  <script src="script.js"></script>
+</body>
 </html>
