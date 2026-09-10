@@ -55,13 +55,12 @@ export default function HeroSection() {
       >
         <h1
           style={{
-            fontSize: 'clamp(3.2rem, 14vw, 9.5rem)',
+            fontSize: 'clamp(4.5rem, 14vw, 9.5rem)',
             letterSpacing: '0.08em',
             fontWeight: 400,
             lineHeight: 1,
             color: 'var(--text-heading)',
-            margin: 0,
-            maxWidth: '100%'
+            margin: 0
           }}
         >
           ARYA

@@ -148,7 +148,6 @@ export default function AudioPlayerToggle({ autoStart = false }) {
 
       {/* Floating Light Pill Control */}
       <div
-        className="mobile-audio-pill"
         style={{
           position: 'fixed',
           top: '22px',

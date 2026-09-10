@@ -6,66 +6,45 @@ export default function HowItStartedSection() {
   const diaryEntries = [
     {
       num: '01',
-      mobileTitle: 'The Interview',
-      desktopTitle: 'THE INTERVIEW',
-      badge: 'where it all began ♡',
+      title: 'THE INTERVIEW',
       note: 'where I thought this was just work.',
-      text: 'You came to me for a job. I took your interview, everything went well, and you started working with me.',
-      variant: 'journal-entry-centered'
+      text: 'You came to me for a job. I took your interview, everything went well, and you started working with me.'
     },
     {
       num: '02',
-      mobileTitle: 'Working Together',
-      desktopTitle: 'WORKING TOGETHER',
-      badge: 'and then I started noticing you...',
+      title: 'WORKING TOGETHER',
       note: 'and then I started noticing you.',
-      text: 'Work updates, project discussions, and learning how we solve problems together.',
-      variant: 'journal-entry-paper'
+      text: 'Work updates, project discussions, and learning how we solve problems together.'
     },
     {
       num: '03',
-      mobileTitle: 'That Google Meet',
-      desktopTitle: 'THAT GOOGLE MEET',
-      badge: 'the CRM call • that little moment',
+      title: 'THAT GOOGLE MEET',
       note: 'the CRM call',
-      text: 'At the end of explaining the CRM call... I casually asked for your Instagram ID.',
-      variant: 'journal-entry-conversation'
+      text: 'At the end of explaining the CRM call... I casually asked for your Instagram ID.'
     },
     {
       num: '04',
-      mobileTitle: 'Instagram',
-      desktopTitle: 'INSTAGRAM',
-      badge: 'the first ask • asked once, asked again...',
+      title: 'INSTAGRAM',
       note: 'asked once, asked again...',
-      text: 'You initially said no. I didn\'t push you then. A few days later, I asked again... and this time, you shared it with me.',
-      variant: 'journal-entry-card'
+      text: 'You initially said no. I didn\'t push you then. A few days later, I asked again... and this time, you shared it with me.'
     },
     {
       num: '05',
-      mobileTitle: 'More Conversations',
-      desktopTitle: 'MORE CONVERSATIONS',
-      badge: 'lunches, dinners, gym & late nights',
+      title: 'MORE CONVERSATIONS',
       note: 'lunches, dinners, gym, late nights',
-      text: 'Random messages, late replies, lunches, dinners, gym chats, and sharing small daily moments.',
-      variant: 'journal-entry-centered'
+      text: 'Random messages, late replies, lunches, dinners, gym chats, and sharing small daily moments.'
     },
     {
       num: '06',
-      mobileTitle: 'The Confession',
-      desktopTitle: 'THE CONFESSION',
-      badge: 'honest feelings • saying it out loud',
+      title: 'THE CONFESSION',
       note: 'honest feelings',
-      text: 'I told you that I liked you and wanted something more than just friendship.',
-      variant: 'journal-entry-paper'
+      text: 'I told you that I liked you and wanted something more than just friendship.'
     },
     {
       num: '07',
-      mobileTitle: 'Where We Are Now',
-      desktopTitle: 'WHERE WE ARE NOW',
-      badge: 'no rush, just patience',
+      title: 'WHERE WE ARE NOW',
       note: 'no rush, just patience',
-      text: '"Maybe after some time—a month, two months, a year—we see where things go and if our vibes match."',
-      variant: 'journal-entry-conversation'
+      text: '"Maybe after some time—a month, two months, a year—we see where things go and if our vibes match."'
     }
   ];
 
@@ -78,30 +57,29 @@ export default function HowItStartedSection() {
       />
 
       {/* Intro Narrative Quote */}
-      <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 3.5rem' }}>
-        <p className="font-serif text-subtitle" style={{ fontSize: 'clamp(1.15rem, 2.5vw, 1.35rem)', color: 'var(--text-deep)', lineHeight: '1.85' }}>
+      <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 4rem' }}>
+        <p className="font-serif text-subtitle" style={{ fontSize: '1.35rem', color: 'var(--text-deep)', lineHeight: '1.85' }}>
           "You came to me for a job. I took your interview. Everything went well. You started working with me...<br /><br />
           And somewhere between conversations about work, random messages, late replies, lunches, dinners, gym, and all those little moments...<br />
-          <span className="text-gradient-rose font-serif" style={{ fontSize: 'clamp(1.25rem, 2.8vw, 1.45rem)' }}>I started seeing you differently."</span>
+          <span className="text-gradient-rose font-serif" style={{ fontSize: '1.45rem' }}>I started seeing you differently."</span>
         </p>
       </div>
 
       {/* SPECIAL HANDWRITTEN MEMORY NOTE: "And then there was Instagram..." */}
       <div
-        className="scrapbook-note mb-16"
+        className="scrapbook-note mb-20"
         style={{
           maxWidth: '680px',
-          margin: '0 auto 4rem',
+          margin: '0 auto 5rem',
           transform: 'rotate(-0.8deg)',
-          background: '#fffdfc',
-          padding: '1.5rem 1.25rem'
+          background: '#fffdfc'
         }}
       >
-        <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
-          <span className="handwritten-note" style={{ fontSize: '1.45rem', color: 'var(--accent-rose)' }}>
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+          <span className="handwritten-note" style={{ fontSize: '1.5rem', color: 'var(--accent-rose)' }}>
             ♡ That one Google Meet...
           </span>
-          <h3 className="font-serif text-gradient-rose" style={{ fontSize: 'clamp(1.6rem, 4vw, 2.5rem)', marginTop: '0.3rem', fontWeight: 400 }}>
+          <h3 className="font-serif text-gradient-rose" style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', marginTop: '0.3rem' }}>
             "And then there was Instagram..."
           </h3>
         </div>
@@ -117,14 +95,14 @@ export default function HowItStartedSection() {
             textAlign: 'center'
           }}
         >
-          <p className="handwritten-note" style={{ fontSize: '1.25rem', color: 'var(--text-deep)', margin: 0 }}>
+          <p className="handwritten-note" style={{ fontSize: '1.3rem', color: 'var(--text-deep)', margin: 0 }}>
             "Google Meet • CRM explanation call"
           </p>
-          <p style={{ color: 'var(--text-body)', fontSize: '1.02rem', margin: 0 }}>
+          <p style={{ color: 'var(--text-body)', fontSize: '1.05rem', margin: 0 }}>
             I asked for your Instagram ID.
           </p>
 
-          <p className="handwritten-note" style={{ fontSize: '1.3rem', color: 'var(--accent-rose)', margin: '0.2rem 0' }}>
+          <p className="handwritten-note" style={{ fontSize: '1.35rem', color: 'var(--accent-rose)', margin: '0.2rem 0' }}>
             You said no. 😌
           </p>
 
@@ -132,33 +110,33 @@ export default function HowItStartedSection() {
             (okay... I didn't push you then)
           </p>
 
-          <p className="handwritten-note" style={{ fontSize: '1.25rem', color: 'var(--text-deep)', margin: '0.4rem 0 0' }}>
+          <p className="handwritten-note" style={{ fontSize: '1.3rem', color: 'var(--text-deep)', margin: '0.4rem 0 0' }}>
             A few days later... I asked again.
           </p>
 
-          <p className="font-serif text-gradient-rose" style={{ fontSize: '1.25rem', fontWeight: 500, margin: 0 }}>
+          <p className="font-serif text-gradient-rose" style={{ fontSize: '1.3rem', fontWeight: 500, margin: 0 }}>
             And this time, Instagram unlocked. 😂
           </p>
         </div>
 
         {/* Narrative Reflection */}
         <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center', borderTop: '1px dashed rgba(217, 107, 131, 0.2)', paddingTop: '1.25rem' }}>
-          <p className="font-serif" style={{ fontSize: '1.15rem', color: 'var(--text-deep)', lineHeight: 1.8, marginBottom: '0.85rem' }}>
+          <p className="font-serif" style={{ fontSize: '1.2rem', color: 'var(--text-deep)', lineHeight: 1.8, marginBottom: '1rem' }}>
             "I asked once. You said no. I didn't push you then. A few days later, I asked again... and this time, you shared it with me."
           </p>
 
-          <p style={{ color: 'var(--text-body)', fontSize: '0.96rem', lineHeight: 1.7, marginBottom: '0.85rem' }}>
+          <p style={{ color: 'var(--text-body)', fontSize: '0.98rem', lineHeight: 1.7, marginBottom: '1rem' }}>
             Maybe it was just Instagram. But somehow, that tiny little thing still made me smile.
           </p>
 
-          <span className="handwritten-note" style={{ fontSize: '1.25rem', color: 'var(--accent-rose)' }}>
+          <span className="handwritten-note" style={{ fontSize: '1.35rem', color: 'var(--accent-rose)' }}>
             CRM ➔ Google Meet ➔ Instagram — Funny how something that started with work slowly became a little more personal. 😂
           </span>
         </div>
       </div>
 
-      {/* DESKTOP TIMELINE VIEW (Screens >= 768px) */}
-      <div className="desktop-only-view" style={{ maxWidth: '720px', margin: '0 auto', gap: '2.5rem' }}>
+      {/* Flowing Diary Chapters (No cards, no boxes!) */}
+      <div style={{ maxWidth: '720px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
         {diaryEntries.map((entry, idx) => (
           <motion.div
             key={idx}
@@ -176,39 +154,11 @@ export default function HowItStartedSection() {
             
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '0.3rem', flexWrap: 'wrap' }}>
               <span className="font-serif text-muted" style={{ fontSize: '1.1rem', fontWeight: 600 }}>{entry.num}</span>
-              <h3 className="font-serif text-gradient-rose" style={{ fontSize: '1.5rem', margin: 0 }}>{entry.desktopTitle}</h3>
+              <h3 className="font-serif text-gradient-rose" style={{ fontSize: '1.5rem', margin: 0 }}>{entry.title}</h3>
               <span className="handwritten-note" style={{ fontSize: '1.3rem', color: 'var(--accent-rose)' }}>{entry.note}</span>
             </div>
 
             <p style={{ fontSize: '1.02rem', color: 'var(--text-body)', margin: 0, lineHeight: 1.75 }}>
-              {entry.text}
-            </p>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* MOBILE LOVE STORY JOURNAL VIEW (Screens < 768px) */}
-      <div className="mobile-only-view" style={{ maxWidth: '100%', margin: '0 auto', gap: '1.5rem' }}>
-        {diaryEntries.map((entry, idx) => (
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-30px' }}
-            transition={{ duration: 0.5, delay: idx * 0.05 }}
-            className={entry.variant}
-          >
-            <div style={{ marginBottom: '0.4rem' }}>
-              <span className="handwritten-note" style={{ fontSize: '1.35rem', color: 'var(--accent-rose)' }}>
-                ♡ {entry.badge}
-              </span>
-            </div>
-
-            <h3 className="font-serif text-gradient-rose" style={{ fontSize: '1.55rem', fontWeight: 400, marginTop: '0.15rem', marginBottom: '0.6rem' }}>
-              {entry.mobileTitle}
-            </h3>
-
-            <p style={{ fontSize: '1.05rem', color: 'var(--text-deep)', margin: 0, lineHeight: 1.85 }}>
               {entry.text}
             </p>
           </motion.div>
