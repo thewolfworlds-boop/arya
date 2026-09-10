@@ -1,7 +1,4 @@
 {
-  "version": 2,
-  "cleanUrls": true,
-  "framework": null,
-  "buildCommand": null,
-  "outputDirectory": "."
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist"
 }
