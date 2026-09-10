@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 export default function ClosingMomentSection() {
-  const whatsappMsg = encodeURIComponent("I made it to the end. 😊");
+  const whatsappMsg = encodeURIComponent("So... I read it. 😊");
   const whatsappUrl = `https://api.whatsapp.com/send?text=${whatsappMsg}`;
 
   return (
@@ -50,18 +50,9 @@ export default function ClosingMomentSection() {
         </p>
 
         {/* Handwritten Invitation & Clickable WhatsApp Link */}
-        <div style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.8rem' }}>
-          <span className="handwritten-note" style={{ fontSize: '1.5rem', color: 'var(--accent-rose)' }}>
-            You made it all the way here... ♡
-          </span>
-
-          <p className="font-serif text-subtitle" style={{ fontSize: '1.25rem', color: 'var(--text-deep)', margin: 0, lineHeight: 1.7 }}>
-            So, if there's anything I got wrong, you can correct me.<br />
-            And if I somehow managed to make you smile, I'll take that as a win. :)
-          </p>
-
-          <p style={{ color: 'var(--text-body)', fontSize: '1.05rem', margin: '0.4rem 0 0.8rem' }}>
-            Now you know what's been on my mind.
+        <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+          <p className="font-serif text-subtitle" style={{ fontSize: '1.25rem', color: 'var(--text-deep)', margin: 0 }}>
+            If you want to tell me what you think...
           </p>
 
           <motion.a
@@ -81,7 +72,7 @@ export default function ClosingMomentSection() {
               borderBottom: '1px dashed var(--accent-rose)'
             }}
           >
-            <span>Just message me on WhatsApp. ♡</span>
+            <span>message me on WhatsApp. ♡</span>
           </motion.a>
         </div>
       </motion.div>
