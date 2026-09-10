@@ -118,38 +118,29 @@ export default function AudioPlayerToggle({ autoStart = false }) {
   }, [autoStart]);
 
   useEffect(() => {
-    if (!isPlaying) return;
-
-    let ticking = false;
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const scrollPos = window.scrollY;
-          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-          const scrollRatio = scrollPos / (docHeight || 1);
+      const scrollPos = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollRatio = scrollPos / (docHeight || 1);
 
-          let targetVol = 0.18;
-          if (scrollRatio > 0.75) {
-            targetVol = 0.12;
-          } else if (scrollRatio > 0.4 && scrollRatio < 0.7) {
-            targetVol = 0.22;
-          }
+      let targetVol = 0.18;
+      if (scrollRatio > 0.75) {
+        targetVol = 0.12;
+      } else if (scrollRatio > 0.4 && scrollRatio < 0.7) {
+        targetVol = 0.22;
+      }
 
-          if (audioRef.current && !usingFallbackSynth) {
-            audioRef.current.volume = targetVol;
-          }
-          if (masterGainRef.current && audioCtxRef.current) {
-            masterGainRef.current.gain.setTargetAtTime(targetVol, audioCtxRef.current.currentTime, 0.5);
-          }
-          ticking = false;
-        });
-        ticking = true;
+      if (audioRef.current && !usingFallbackSynth) {
+        audioRef.current.volume = targetVol;
+      }
+      if (masterGainRef.current && audioCtxRef.current) {
+        masterGainRef.current.gain.setTargetAtTime(targetVol, audioCtxRef.current.currentTime, 0.5);
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isPlaying, usingFallbackSynth]);
+  }, [usingFallbackSynth]);
 
   return (
     <>
